@@ -1,12 +1,13 @@
+import json
+
+from django.db.models.functions import Lower
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
-from rest_framework.exceptions import NotFound, ParseError
-
+from rest_framework.exceptions import ParseError
 from artifact.serializers import ArtifactSerializer
 from artifact.models import Artifact
-import json, jsonify
 
 
 class ArtifactByQueryParameters(generics.ListAPIView):
@@ -16,14 +17,16 @@ class ArtifactByQueryParameters(generics.ListAPIView):
     def get_queryset(self, category=None, platform_used=None):
         if self.request.method == 'GET':
             queryset = Artifact.objects.all()
-            category = self.request.query_params.get('category', default="")
-            platform_used = self.request.query_params.get('platform', default="")
+            # To allow case insensitive querying from query parameters
+            category = self.request.query_params.get('category', default="").lower()
+            platform_used = self.request.query_params.get('platform', default="").lower()
 
             if category or platform_used :
                 if category not in list(Artifact.objects.values_list('category', flat=True).distinct()) or \
                         platform_used not in list(Artifact.objects.values_list('platform_used', flat=True).distinct()):
                     raise ParseError("values not supplied")
-                queryset = Artifact.objects.filter(category__iexact=category, platform_used__iexact=platform_used)
+                queryset = Artifact.objects.filter(category__icontains=category,
+                                                   platform_used__icontains=platform_used)
             return queryset
 
 

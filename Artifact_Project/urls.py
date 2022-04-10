@@ -21,5 +21,5 @@ from . import views
 urlpatterns = [
     path('', views.api_root, name='api_root'),
     path('admin/', admin.site.urls),
-    path('artifact/',include("artifact.urls")),
+    path('artifacts/',include("artifact.urls")),
 ]
