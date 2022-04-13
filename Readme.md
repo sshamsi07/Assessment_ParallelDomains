@@ -1,4 +1,4 @@
-Backend Assessment for Parallel Domains
+Backend Assessment for Parallel Domains  
 Clone the repository:
 ~~~~
 git clone https://github.com/sshamsi07/Assessment_ParallelDomains.git
@@ -11,7 +11,7 @@ Run app container
 ~~~
 docker run -p 8000:8000 app
 ~~~
-Use Base URL as localhost:8000
+Use Base URL as `localhost:8000`
 
 **Try the endpoints**:
 
@@ -32,12 +32,10 @@ http://localhost:8000/artifacts/?category=rural&platform=Linux
 http://localhost:8000/artifacts/?category=Quantum&platform=Windows
 http://localhost:8000/artifacts/?category=Ancient&platform=Windows
 ~~~~
-- Store a new artifact:
+- Store a new artifact: - With POST request as:
 ~~~
 http://localhost:8000/artifacts/create
-~~~
-- With POST request json body as:
-~~~
+
 {
         "slug":"artif_12",
         "category":"urban",
