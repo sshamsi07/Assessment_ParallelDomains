@@ -1,4 +1,5 @@
 from django.contrib import admin
 from.models import Artifact
-# Register your models here.
+
+# Registered Artifact model
 admin.site.register(Artifact)

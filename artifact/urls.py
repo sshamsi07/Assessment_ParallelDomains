@@ -1,7 +1,9 @@
 from django.urls import path
-from artifact.selectors import SingleArtifactBySlug, ArtifactByQueryParameters, CreateArtifact
+from artifact.views import SingleArtifactBySlug, ArtifactByQueryParameters, CreateArtifact
+
 urlpatterns = [
-    path('', ArtifactByQueryParameters.as_view()),
-    path('create', CreateArtifact.as_view()),
-    path('<str:slug>', SingleArtifactBySlug.as_view()),
+    # fetches lists based on specified query params
+    path('', ArtifactByQueryParameters.as_view(), name='artifact-list'), #
+    path('create', CreateArtifact.as_view(), name='artifact-post'),
+    path('<str:slug>', SingleArtifactBySlug.as_view(), name='artifact-get'),
 ]
